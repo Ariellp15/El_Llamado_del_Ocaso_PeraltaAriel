@@ -1,12 +1,12 @@
 import './App.css';
-import {NavBar} from './components/navBar/navBar'
+import {Home} from './pages/home/home'
 
 function App() {
   const nameProject = 'El Llamado del Ocaso - Saga Online';
   return (
     <div className="App">
     <h1> Hola {nameProject}</h1>  
-    <NavBar/>  
+    <Home/>  
     </div>
   );
 }
