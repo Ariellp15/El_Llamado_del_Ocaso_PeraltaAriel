@@ -1,26 +1,39 @@
-import React from 'react'
-export const ItemCount = ()=>{
+import { useState } from 'react'
+import './itemCount.css'
 
-    const iconAdd=<FontAwesomeIcon icon={faAddSquare}/>
-    const iconSubs=<FontAwesomeIcon icon={faSubsSquare}/>
-    const [Stock, setStock] = React.useState(5)
-    const [initial, setInitial] = React.useState(1)
-    const [onAdd, setOnAdd] = React.useState()
+export const ItemCount = ({stock, initial}) => {
+    const [cantidad, setCantidad] = useState(initial)
+    // function de buttons
+    function agregar() {
+        let newUnidades = parseInt(cantidad) +1
+        setCantidad(newUnidades)
+    }
+    function quitar() {
+        let newUnidades = parseInt(cantidad) -1
+        setCantidad(newUnidades)
+    }
+    function mensaje() {
+        if(cantidad > 0) {
+            alert("Tu compra fue recibida")
+        } else {
+            alert("No pudimos procesar tu compra")
+        }
+    }
 
-    return (
-        <count>
-    <div>
-        <div className='container'>
-        <br/>
-        <div className='count'>
-        <button id='btnMinus' href='#' onClick={()=>{if (initial>1) { document.querySelector('#btnMinus').disabled=false; document.querySelector('#btnAdd').disabled=false; setInitial(initial - 1)} else {document.querySelector('#btnMinus').disabled=true}}}><i>{iconSubs}</i></button>
-        <label className='contador'>{initial}</label>
-        <button id='btnAdd' href='#' onClick={()=>{ if(Stock>initial) { document.querySelector('#btnMinus').disabled=false; document.querySelector('#btnAdd').disabled=false;setInitial(initial + 1); } else{  document.querySelector('#btnAdd').disabled=true; alert('Supera cantidad en Stock') } }}><i>{iconAdd}</i></button>
+    
+    // montaje
+    return(
+        <div>
+            <div className="formItemCounter">
+                <button className="cantItemButton"
+                onClick={() => quitar()}
+                disabled={cantidad<=initial}>-</button>
+                <p>{cantidad}</p>
+                <button className="cantItemButton"
+                onClick={() => agregar()}
+                disabled={cantidad>=stock}>+</button>
+            </div>
+            <button type="submit" onClick={() => mensaje()}>Compra</button>
         </div>
-        <br/>
-        <p>Stock Disponible:<b>{Stock}</b></p>
-        <button className='btnCarrito'>Agregar al carrito</button></div>
-    </div>
-        </count>
     )
 }
